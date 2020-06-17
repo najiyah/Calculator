@@ -1,29 +1,58 @@
 <html>
     <head></head>
     <body>
-        <input type="text" id='textbar'>
+        <input type="text" id='textbar'> 
         <table>
             <tr><td><button class="btn-number">1</button></td><td><button class="btn-number">2</button></td><td><button class="btn-number">3</button></td><td><button id="btn-clear">C</button></td></tr>
             <tr><td><button class="btn-number">4</button></td><td><button class="btn-number">5</button></td><td><button class="btn-number">6</button></td><td><button id="btn-backspace">&#x2190;</button></td></tr>
             <tr><td><button class="btn-number">7</button></td><td><button class="btn-number">8</button></td><td><button class="btn-number">9</button><td><button class="btn-number">00</button></td></td><td></td></tr>
-            <tr><td><button>&#8730;</button></td><td><button class="btn-number">0</button></td><td><button>+</button></td><td></td></tr>
-            <tr><td><button>X</button></td><td><button>&#45;</button></td><td><button>=</button></td><td></td></tr>
+            <tr><td><button>&#8730;</button></td><td><button class="btn-number">0</button></td><td><button id="btn-plus">+</button></td><td><button id="btn-move">Z</button></td><td></td></tr>
+            <tr><td><button id="btn-multiply">X</button></td><td><button>&#45;</button></td><td><button id="btn-equal">=</button></td><td></td></tr>
         </table>
         <p><a href="../index.html">&#x2190;</a></p>
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
+        var operator;
+        var tmp;
         $('.btn-number').click(function(){
             let textbar = $('#textbar').val();
             let btn_number = $(this).text();
             $('#textbar').val(textbar+btn_number);
         });
         $('#btn-clear').click(function(){
+            let textbar = $('#textbar').val();
+            $('#textbarb').val(textbar);
             $('#textbar').val('');
         })
         $('#btn-backspace').click(function(){
             let textbar = $('#textbar').val();
             textbar = textbar.substr(0,textbar.length-1)
             $('#textbar').val(textbar);
+        })
+        $('#btn-move').click(function(){
+            let textbar = $('#textbarb').val();
+            $('#textbar').val(textbar);
+            $('#textbarb').val('');
+        })
+        $('#btn-plus').click(function(){
+            let textbar = $('#textbar').val();
+            $('#textbar').val('0');
+            operator = '+';
+            tmp = textbar;
+        })
+        $('#btn-multiply').click(function(){
+            let textbar = $('#textbar').val();
+            $('#textbar').val(0);
+            operator = 'X';
+            tmp = textbar;
+        })
+        $('#btn-equal').click(function(){
+            let textbar = $('#textbar').val();
+            if(operator=='X'){
+                $('#textbar').val(parseInt(tmp)*parseInt(textbar));
+            }else if(operator=='+'){
+                $('#textbar').val(parseInt(tmp)+parseInt(textbar));
+            }        
         })
     </script>
     </body>
